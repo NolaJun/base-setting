@@ -3,7 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
-
+import './assets/js/rem'
+// vant样式引入
+import 'vant/lib/index.css'
+// font-awesome 字体图标
+import 'font-awesome/css/font-awesome.css'
 Vue.config.productionTip = false
 
 new Vue({
