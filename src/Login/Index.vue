@@ -1,7 +1,6 @@
 <template>
-  <div class="login">
-    <van-cell-group>
-<!--      <van-field v-model="username" label="用户名" placeholder="请输入用户名" error/>-->
+  <div class="login" :style="{height: height}">
+    <van-cell-group class="middle-content">
       <van-field v-model="phone" label="手机号" placeholder="请输入手机号" error-message="手机号格式错误"/>
       <van-field v-model="sms" center clearable label="短信验证码" placeholder="请输入短信验证码">
         <van-button slot="button" size="small" type="primary">发送验证码</van-button>
@@ -22,6 +21,7 @@ export default {
   },
   data () {
     return {
+      height: document.documentElement.clientHeight,
       phone: '13159222760',
       sms: ''
     }
@@ -32,5 +32,12 @@ export default {
   .login{
     background: url('../assets/img/login-bg.jpg') top left no-repeat;
     background-size: cover;
+  }
+  .middle-content{
+    border: 1Px solid #f9f9f9;
+    width: 500px;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
   }
 </style>

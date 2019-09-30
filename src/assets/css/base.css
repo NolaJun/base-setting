@@ -2,4 +2,95 @@
   content: '';
   box-sizing: border-box;
 }
+html,
+body,
+form,
+fieldset,
+p,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  -webkit-text-size-adjust: none;
+}
+/**********************样式重置**************************/
+header,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: inherit;
+}
+li.li-no-style {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.clearfix {
+  *zoom: 1;
+  clear: both;
+}
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.ellipsis {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+/*图片居中*/
+.img_center {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 100%;
+  overflow: hidden;
+}
+.img_center:after {
+  content: ' ';
+  vertical-align: middle;
+}
+.img_center img {
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+  display: inline-block;
+}
 /*# sourceMappingURL=base.css.map */

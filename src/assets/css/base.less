@@ -5,3 +5,142 @@
   }
 }
 
+// 阻止屏幕旋转时字体自动调整
+html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6 {
+  -webkit-text-size-adjust: none;
+}
+
+/**********************样式重置**************************/
+header, h1, h2, h3, h4, h5, h6, div, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: inherit;
+  &.li-no-style{
+    list-style: none;
+  }
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+// 清除浮动
+.clearfix {
+  *zoom: 1;
+  clear: both;
+
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+  }
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+// 对齐方式
+.ellipsis {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/*图片居中*/
+
+.img_center {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 100%;
+  overflow: hidden;
+
+  &:after {
+    content: ' ';
+    vertical-align: middle;
+  }
+
+  img {
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+  }
+}
+
+// 圆角及边框
+.border-radius(@radius: 5px) {
+  border-radius: @radius;
+}
+
+.border-top-radius(@radius) {
+  border-top-right-radius: @radius;
+  border-top-left-radius: @radius;
+}
+
+.border-right-radius(@radius) {
+  border-bottom-right-radius: @radius;
+  border-top-right-radius: @radius;
+}
+
+.border-bottom-radius(@radius) {
+  border-bottom-right-radius: @radius;
+  border-bottom-left-radius: @radius;
+}
+
+.border-left-radius(@radius) {
+  border-bottom-left-radius: @radius;
+  border-top-left-radius: @radius;
+}
+
+.box-shadow(@x: 0;
+@y: 0;
+@blur: 1px;
+
+@color: #000) {
+  -webkit-box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  box-shadow: @arguments;
+}
+
+.border(@width: 1PX, @color: #ccc){
+  border: @width solid @color;
+}
+.border-left(@width: 1PX, @color: #ccc){
+  border-left: @width solid @color;
+}
+.border-right(@width: 1PX, @color: #ccc){
+  border-right: @width solid @color;
+}
+.border-top(@width: 1PX, @color: #ccc){
+  border-top: @width solid @color;
+}
+.border-bottom(@width: 1PX, @color: #ccc){
+  border-bottom: @width solid @color;
+}
+
