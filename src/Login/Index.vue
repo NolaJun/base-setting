@@ -30,7 +30,7 @@ export default {
 </script>
 <style lang="less">
   .login{
-    background: url('../assets/img/login-bg.jpg');
+    background: url('../assets/img/login-bg.jpg') top left no-repeat;
     background-size: cover;
   }
 </style>
