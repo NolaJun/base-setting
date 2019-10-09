@@ -93,6 +93,28 @@ a {
   vertical-align: middle;
   display: inline-block;
 }
+.form-input {
+  font-size: 24px;
+}
+.form-input .van-field__error-message {
+  font-size: 18px;
+}
+.form-input .form-input-btn {
+  font-size: 24px;
+}
+.form-btn {
+  font-size: 24px;
+  margin-top: 20px;
+}
+.form-btn.login-btn {
+  width: 400px;
+  padding: 10px;
+  height: 60px;
+  margin-top: 100px;
+}
+.van-button--normal {
+  font-size: 24px;
+}
 .login {
   background: url('../img/login-bg.jpg') top left no-repeat;
   background-size: 100%;
@@ -100,11 +122,11 @@ a {
 }
 .middle-content {
   border: 1Px solid #f9f9f9;
-  width: 500px;
+  width: 600px;
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
   border: 1 PX solid #cccccc;
-  border-radius: 5 PX;
+  border-radius: 20px;
 }
 /*# sourceMappingURL=Login.css.map */
