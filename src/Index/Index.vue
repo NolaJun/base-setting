@@ -1,28 +1,35 @@
 <template>
-  <div></div>
+  <div>
+    <!--轮播图-->
+    <banner ref="banner"/>
+    <!--子区域菜单-->
+    <gridItem ref="gridItem"/>
+  </div>
 </template>
 
 <script>
+import banner from './banner'
+import gridItem from './gridItem'
 export default {
   name: 'Index',
 
   mixins: [],
 
-  components: {},
+  components: { banner, gridItem },
 
   props: {},
 
-  data() {},
+  data () {},
 
   computed: {},
 
   watch: {},
 
-  created() {},
+  created () {},
 
-  mounted() {},
+  mounted () {},
 
-  destroyed() {},
+  destroyed () {},
 
   methods: {}
 }

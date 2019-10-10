@@ -9,7 +9,7 @@
         <van-button class="form-input-btn" slot="button" size="small" type="primary">发送验证码</van-button>
       </van-field>
     </van-cell-group>
-    <van-button class="form-btn login-btn" round :loading="loading" type="warning" loading-text="登录中...">登录</van-button>
+    <van-button class="form-btn login-btn" round :loading="loading" type="warning" loading-text="登录中..." @click="login">登录</van-button>
   </div>
 </template>
 
@@ -29,8 +29,13 @@ export default {
       height: document.documentElement.clientHeight,
       loading: false,
       show: true,
-      phone: '13159222760',
+      phone: '',
       sms: ''
+    }
+  },
+  methods: {
+    login () {
+      this.$router.push('/Index')
     }
   }
 }
