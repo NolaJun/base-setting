@@ -1,11 +1,9 @@
 <template>
-  <van-grid>
-    <van-grid-item icon="../assets/img/service1.png" text="在线预约" to="/">
-      <van-image src="https://img.yzcdn.cn/vant/apple-1.jpg" />
-    </van-grid-item>
-    <van-grid-item icon="photo-o" text="会员套餐" />
-    <van-grid-item icon="photo-o" text="会员联盟" />
-    <van-grid-item icon="photo-o" text="关于我们" />
+  <van-grid class="grid" v-model="active">
+    <van-grid-item class="grid-item" icon="/img/service1.png" text="在线预约"></van-grid-item>
+    <van-grid-item class="grid-item" icon="/img/service2.png" text="会员套餐"></van-grid-item>
+    <van-grid-item class="grid-item" icon="/img/service3.png" text="会员联盟"></van-grid-item>
+    <van-grid-item class="grid-item" icon="/img/service4.png" text="关于我们"></van-grid-item>
   </van-grid>
 </template>
 
@@ -20,6 +18,7 @@ export default {
   },
   data () {
     return {
+      active: null,
       list: []
     }
   },
@@ -27,6 +26,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  .grid{
 
+  }
+  .grid-item {
+    .van-grid-item__icon{
+      font-size: 40px!important;
+    }
+    .van-icon__image{
+      width: 40px!important;
+      height: 40px!important;
+    }
+  }
+  .van-icon__image{
+    width: 40px;
+    height: 40px;
+  }
 </style>
