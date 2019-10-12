@@ -1,11 +1,12 @@
 <template>
+  <div class="footer">
   <van-tabbar class="tabbar" :fixed="true" v-model="tabIndex" active-color="#fe8247" inactive-color="#000">
-<!--    <van-tabbar-item v-for="(item, index) in list" :key="index">-->
     <van-tabbar-item v-for="(item, index) in list" :key="index" :to="item.url">
       <span>{{item.name}}</span>
       <van-image class="tabbar-img img_center" slot="icon" slot-scope="props" :src="props.active ? item.active_icon : item.icon"></van-image>
     </van-tabbar-item>
   </van-tabbar>
+  </div>
 </template>
 
 <script>
@@ -39,7 +40,8 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
+.footer{
   .tabbar{
     height: 100px;
   }
@@ -51,4 +53,5 @@ export default {
       height: 40px;
     }
   }
+}
 </style>
