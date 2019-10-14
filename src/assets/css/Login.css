@@ -132,7 +132,7 @@ a {
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
-  border: 1 PX solid #cccccc;
+  border: 1PX solid #ccc;
   border-radius: 20px;
 }
 .form-login-title {

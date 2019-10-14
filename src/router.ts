@@ -11,12 +11,32 @@ export default new Router({
     {
       path: '/',
       name: 'Auth',
+      component: () => import('./Login/Auth.vue')
+    },
+    {
+      path: '/Login',
+      name: 'Login',
       component: () => import('./Login/Index.vue')
     },
     {
       path: '/Index',
       name: 'home',
       component: () => import('./Index/Index.vue')
+    },
+    {
+      path: '/Mall',
+      name: 'Mall',
+      component: () => import('./Mall/Index.vue')
+    },
+    {
+      path: '/Order',
+      name: 'Order',
+      component: () => import('./Order/Index.vue')
+    },
+    {
+      path: '/Mine',
+      name: 'Mine',
+      component: () => import('./Mine/Index.vue')
     }
   ]
 })
