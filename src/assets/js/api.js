@@ -6,11 +6,11 @@ import { GetApi, GetAppid, GetOpenId } from './global'
 
 Vue.use(VueAxios, axios)
 const config = {
-  proxy: '/api' // 代理配置
+  proxy: '' // 代理配置
 }
 // axios基本配置
 const httpService = axios.create({
-  baseURL: '',
+  baseURL: 'https://apidev.kgjsoft.com',
   timeout: 10000,
   withCredentials: true
 })
@@ -37,7 +37,7 @@ httpService.interceptors.response.use(response => {
 // http状态码错误处理
 const checkStatus = (res) => {
   // window.$pig.$vux.loading.hide()
-  switch (res.status) {
+  switch (res.code) {
     case 401: { // 登录过期
       console.log('登录过期')
       break
@@ -115,11 +115,11 @@ const formatParams = (method = 'GET', params) => {
 
 // eslint-disable-next-line import/export
 export const apiPost = (self, params, url) => {
-  let api = GetLocal(GetAppid(), 'api').api
-  console.log(GetAppid(), api, api + url)
+  // let api = GetLocal(GetAppid(), 'api').api
+  // console.log(GetAppid(), api, api + url)
   return new Promise((resolve, reject) => {
     httpService(Object.assign(formatParams('POST', params), {
-      url: api + url
+      url: `${config.proxy}` + url
     })).then(response => { resolve(response) }).catch(error => { reject(error) })
   })
 }
