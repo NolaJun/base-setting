@@ -31,7 +31,7 @@ export default {
     init () {
       this.list = [
         { icon: '/img/footer1.png', active_icon: '/img/footer_1.png', name: '首页', url: '/Index' },
-        { icon: '/img/footer2.png', active_icon: '/img/footer_2.png', name: '商城', url: '/ Mall' },
+        { icon: '/img/footer2.png', active_icon: '/img/footer_2.png', name: '商城', url: '/Mall' },
         { icon: '/img/footer3.png', active_icon: '/img/footer_3.png', name: '订单', url: '/Order' },
         { icon: '/img/footer4.png', active_icon: '/img/footer_4.png', name: '我的', url: '/Mine' }
       ]

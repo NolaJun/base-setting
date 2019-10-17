@@ -1,3 +1,12 @@
+/**
+ * 链接上获取参数信息
+ * @param name
+ * @returns {string}
+ */
+export const getUrlKey = (name) => {
+  let z = decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [null, ''])[1].replace(/\+/g, '%20')) || null
+  return z
+}
 
 /**
  * 设置localStorage
@@ -9,12 +18,9 @@
 export const SetLocal = (type, key, val) => {
   let prefix = !type ? '' : type + '_'
   key = prefix + key
-  let data = {
-    val: val
-  }
+  let data = {val: val}
   localStorage.setItem(key, JSON.stringify(data))
 }
-
 /**
  * 获取localstorage数据
  * @param type
@@ -30,7 +36,6 @@ export const GetLocal = (type, k) => {
   if (!data) return null
   else return data.val
 }
-
 /**
  * 移除单项localStorage
  * @param type
@@ -44,21 +49,9 @@ export const RemoveLocal = (type, k) => {
   localStorage.removeItem(key)
 }
 
-/**
- * 数据深拷贝
- * @param name
- * @returns {string}
- */
-export const getUrlKey = (name) => {
-  // console.log(name, (new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href)))
-  let z = decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [null, ''])[1].replace(/\+/g, '%20')) || null
-  // alert(name + '=' + z)
-  return z
-}
-
 export default {
   getUrlKey,
-  RemoveLocal,
   GetLocal,
-  SetLocal
+  SetLocal,
+  RemoveLocal
 }

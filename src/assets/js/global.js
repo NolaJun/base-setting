@@ -1,8 +1,13 @@
-import { getUrlKey, GetLocal, SetLocal, RemoveLocal } from './data'
+import { SetLocal, RemoveLocal, GetLocal, getUrlKey } from './data'
+import { apiPost } from './api'
 
+var appid = ''
 var openid = ''
-var appid = 'wx0003a61ee719da15'
-
+const api = {
+  master: '',
+  // master: 'https://api.crm.raven.pub',
+  local: 'http://api.crm.com'
+}
 /**
  * 获取appid
  * @param appid
@@ -10,26 +15,12 @@ var appid = 'wx0003a61ee719da15'
  * @constructor
  */
 export const GetAppid = (appid) => {
+  console.log(appid)
   if (!appid) appid = localStorage.getItem('appid')
+  console.log(appid)
   appid = GetLocal(appid, 'appid')
   return appid
 }
-
-/**
- * 获取请求openid
- * @param self
- * @param appid 微信appid
- * @constructor
- */
-export const GetOpenId = () => {
-  let host = document.domain
-  if (host === 'localhost' || host === 'crm.com' || host === 'localhost:8081' || host === 'localhost:8080') {
-    return 'oDxCtv9Di1N7-VlryE1UdbVoxm0M'
-  } else {
-    return GetLocal(appid, 'openid')
-  }
-}
-
 /**
  * 生成请求地址
  * @param user
@@ -39,6 +30,22 @@ export const makeApi = (user) => {
     api.master = 'http://' + user.api
   } else {
     api.master = 'https://' + user.api
+  }
+}
+
+/**
+ * 页面跳转
+ * @param self
+ * @returns {boolean}
+ */
+export const currentPage = (self) => {
+  let path = self.$route.path // 当前链接
+  if (path === '/') {
+    self.$router.push('/Index')
+  } else if (path === '/Index') {
+    return false
+  } else {
+    self.$router.push({ path: path })
   }
 }
 
@@ -90,7 +97,7 @@ export const GetUserInfo = (self) => {
 export const GetApi = (self, appid, type) => {
   const loginApi = 'https://apiadmin.kgjsoft.com'
   self.$http.post(loginApi + '/Login/GetWeChatApi', { key: appid }, { emulateJSON: true }).then((res) => {
-    res = res.body
+    res = res.data
     if (res.code === 200) {
       SetLocal(appid, 'api', res.data)
       makeApi(GetLocal(appid, 'api'))
@@ -99,6 +106,29 @@ export const GetApi = (self, appid, type) => {
   })
 }
 
+/**
+ * 获取请求openid
+ * @constructor
+ */
+export const GetOpenId = () => {
+  let host = document.domain
+  if (host === 'localhost' || host === 'crm.com' || host === 'localhost:8081' || host === 'localhost:8080') {
+    // return 'oD1Hz0gZmpkYzNnkfeeEGkV_-tV4'
+    return 'oDxCtv9Di1N7-VlryE1UdbVoxm0M'
+    // return 'oDxCtv39x6Gk-C96C9r9cjTS4iiQ'
+    // return 'oD1Hz0ovBIjX7phEY5jBwXXwlj58'
+    // return appid === 'wx4c9a577d4ac1e219' ? 'oD1Hz0gZmpkYzNnkfeeEGkV_-tV4' : 'oDxCtv9Di1N7-VlryE1UdbVoxm0M'
+  } else {
+    return GetLocal(appid, 'openid')
+  }
+}
+/**
+ * 微信授权获取openid
+ * @param self
+ * @param appid
+ * @param type
+ * @constructor
+ */
 export const GetWxOpenId = (self, appid, type) => {
   openid = GetOpenId()
   if (openid) {
@@ -125,7 +155,6 @@ export const GetWxOpenId = (self, appid, type) => {
     }
   }
 }
-
 /**
  * 检测用户登录状态
  * @param self
@@ -156,26 +185,11 @@ export const CheckLogin = (self, appid, openId) => {
     }
   })
 }
-
-/**
- * 页面跳转
- * @param self
- * @returns {boolean}
- */
-export const currentPage = (self) => {
-  let path = self.$route.path // 当前链接
-  if (path === '/') {
-    self.$router.push('/Index')
-  } else if (path === '/Index') {
-    return false
-  } else {
-    self.$router.push({ path: path })
-  }
-}
-
 export default {
+  GetUserInfo,
   GetApi,
-  GetAppid,
   GetOpenId,
-  GetUserInfo
+  GetAppid,
+  currentPage,
+  makeApi
 }

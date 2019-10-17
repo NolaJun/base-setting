@@ -15,6 +15,8 @@
 
 <script>
 import { Popup, CellGroup, Field, Button, Image } from 'vant'
+import { GetApi } from '../assets/js/global'
+import {getUrlKey} from '../assets/js/data'
 export default {
   name: 'Login',
   components: {
@@ -35,7 +37,10 @@ export default {
   },
   methods: {
     login () {
-      this.$router.push('/Index')
+      let appid = getUrlKey('id')
+      console.log(appid)
+      GetApi(this, appid)
+      // this.$router.push('/Index')
     }
   }
 }
