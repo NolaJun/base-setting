@@ -8,6 +8,13 @@ const api = {
   // master: 'https://api.crm.raven.pub',
   local: 'http://api.crm.com'
 }
+
+// post请求头
+const header = {
+  Accept: 'application/json',
+  Authorization: 'Bearer'
+}
+
 /**
  * 获取appid
  * @param appid
@@ -78,7 +85,7 @@ export const GetUserInfo = (self) => {
       appid = GetLocal('', 'appid') // 获取默认的appid
       openid = GetLocal(appid, 'openid')
       let token = GetLocal(openid, 'token')
-      self.global.header.Authorization = 'Bearer ' + token
+      self.header.Authorization = 'Bearer ' + token
       makeApi(GetLocal(appid, 'api'))
       setTimeout(() => {
         CheckLogin(self, appid, openid)

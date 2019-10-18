@@ -1,5 +1,5 @@
 <template>
-  <van-swipe :autoplay="8000" :width="375" :height="86" :show-indicators="false">
+  <van-swipe :autoplay="8000" :width="width" :height="86" :show-indicators="false">
     <van-swipe-item class="img_center" v-for="(image, index) in images" :key="index">
       <img class="banner-img" :src="image" alt=""/>
     </van-swipe-item>
@@ -17,6 +17,7 @@ export default {
   },
   data () {
     return {
+      width: document.body.clientWidth,
       images: [
         '/img/active.png',
         '/img/active-2.png',

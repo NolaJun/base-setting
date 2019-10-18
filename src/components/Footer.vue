@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
   <van-tabbar class="tabbar" :fixed="true" v-model="tabIndex" active-color="#fe8247" inactive-color="#000">
-    <van-tabbar-item v-for="(item, index) in list" :key="index" :to="item.url">
+    <van-tabbar-item v-for="(item, index) in list" :key="index" :to="item.url" :name="item.url">
       <span>{{item.name}}</span>
       <van-image class="tabbar-img img_center" slot="icon" slot-scope="props" :src="props.active ? item.active_icon : item.icon"></van-image>
     </van-tabbar-item>
@@ -23,6 +23,10 @@ export default {
       tabIndex: 0,
       list: []
     }
+  },
+  activated () {
+    console.log(this.$route.path)
+    this.tabIndex = this.$route.path
   },
   created () {
     this.init()

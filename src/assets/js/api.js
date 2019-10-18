@@ -114,8 +114,6 @@ const formatParams = (method = 'GET', params) => {
 }
 // eslint-disable-next-line import/export
 export const apiPost = (self, params, url) => {
-  // let api = GetLocal(GetAppid(), 'api').api
-  // console.log(GetAppid(), api, api + url)
   return new Promise((resolve, reject) => {
     httpService(Object.assign(formatParams('POST', params), {
       url: `${config.proxy}` + url

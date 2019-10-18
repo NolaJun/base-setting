@@ -18,7 +18,7 @@ export const getUrlKey = (name) => {
 export const SetLocal = (type, key, val) => {
   let prefix = !type ? '' : type + '_'
   key = prefix + key
-  let data = {val: val}
+  let data = { val: val }
   localStorage.setItem(key, JSON.stringify(data))
 }
 /**

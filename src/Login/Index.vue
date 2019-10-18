@@ -39,8 +39,8 @@ export default {
     login () {
       let appid = getUrlKey('id')
       console.log(appid)
-      GetApi(this, appid)
-      // this.$router.push('/Index')
+      // GetApi(this, appid)
+      this.$router.push('/Index')
     }
   }
 }
