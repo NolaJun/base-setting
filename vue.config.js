@@ -1,4 +1,4 @@
-const appData = require('./mock/data.json')
+const appData = require('./public/mock/data.json')
 const userinfo = appData.userinfo
 const skill = appData.skill
 const banner = appData.banner

@@ -37,6 +37,15 @@ export default new Router({
       path: '/Mine',
       name: 'Mine',
       component: () => import('./Mine/Index.vue')
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: () => import('./components/404.vue')
+    },
+    { // 没有匹配的路由都进入404
+      path: '*',
+      redirect: '/404'
     }
   ]
 })
