@@ -8,8 +8,10 @@ import './assets/js/rem'
 import 'vant/lib/index.css'
 // font-awesome 字体图标
 import 'font-awesome/css/font-awesome.css'
+// @ts-ignore
 Vue.config.productionTip = false
 
+require('../public/mock/mock.js')
 new Vue({
   router,
   store,

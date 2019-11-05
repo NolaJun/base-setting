@@ -1,32 +1,39 @@
 <template>
-  <van-tabs v-model="active">
-    <van-tab class="font-14" title="限时秒杀">内容 1</van-tab>
-    <van-tab title="最新优惠">
-      <good :list="list"></good>
+  <van-tabs v-model="active" sticky>
+    <van-tab class="font-14" title="限时秒杀">
+      <good ref="MallSeckill" :type="'MallSeckill'"></good>
     </van-tab>
-    <van-tab title="积分商城">内容 3</van-tab>
+    <van-tab title="最新优惠">
+      <good ref="Mall" :type="'Mall'"></good>
+    </van-tab>
+    <van-tab title="积分商城">
+      <good ref="MallIntegral" :type="'MallIntegral'"></good>
+    </van-tab>
   </van-tabs>
 </template>
 
 <script>
-import { Tab, Tabs } from 'vant'
+import { Tab, Tabs, Sticky } from 'vant'
 import good from '../components/Good'
 export default {
   name: 'GoodSection',
   components: {
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
+    [Sticky.name]: Sticky,
     good
   },
   data () {
     return {
-      active: 1,
+      active: 0,
       list: []
     }
   },
+  activated () {
+    console.log(this.list)
+  },
   methods: {
     // that.getList(2, '/MallDiscountProduct/GetMallList', 1) // 获取最新优惠列表
-
     getList (type, url, pages) {
       let that = this
       if (pages) that.page = pages

@@ -121,23 +121,24 @@ export const apiPost = (self, params, url) => {
   })
 }
 /*
- *  post请求
- *  url:请求地址
- *  params:参数
- * */
-// export const apiPost = (url, params = {}) => {
-//   return new Promise((resolve, reject) => {
-//     httpService({
-//       url: url,
-//       method: 'post',
-//       data: params
-//     }).then(response => {
-//       resolve(response)
-//     }).catch(error => {
-//       reject(error)
-//     })
-//   })
-// }
+*  post请求
+*  url:请求地址
+*  params:参数
+* */
+export const axiosHttp = (url, params = {}) => {
+  return new Promise((resolve, reject) => {
+    httpService({
+      url: url,
+      method: 'post',
+      data: params
+    }).then(response => {
+      resolve(response)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
 export default {
-  apiPost
+  apiPost,
+  axiosHttp
 }

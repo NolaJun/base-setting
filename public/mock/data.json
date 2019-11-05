@@ -296,5 +296,54 @@
         "operator_id":8
       }
     ]
+  },
+  "list": {
+    "data":[
+      {
+        "img":[
+          "https://apicrm.kgjsoft.com/upload/mall_product/1563351236.2026.jpg"
+        ],
+        "mall_info":{
+          "id":18,
+          "name":"米其林优惠券",
+          "sale_num":57,
+          "price":"0.01",
+          "mall_product_id":24,
+          "original_price":"30.00",
+          "sale_percent":"57.00"
+        }
+      },
+      {
+        "img":[
+          "https://apicrm.kgjsoft.com/upload/mall_product/1563272411.1252.jpg",
+          "https://apicrm.kgjsoft.com/upload/mall_product/1569568529.0497.png"
+        ],
+        "mall_info":{
+          "id":14,
+          "name":"后车灯",
+          "sale_num":0,
+          "price":"81.00",
+          "mall_product_id":22,
+          "original_price":"80.00",
+          "sale_percent":0
+        }
+      },
+      {
+        "img":[
+          "https://apicrm.kgjsoft.com/upload/mall_product/1567584602.4869.png",
+          "https://apicrm.kgjsoft.com/upload/mall_product/1567584602.4909.png",
+          "https://apicrm.kgjsoft.com/upload/mall_product/1567584602.4943.png"
+        ],
+        "mall_info":{
+          "id":10,
+          "name":"高端车型真皮皮套A1型号",
+          "sale_num":0,
+          "price":"1999.00",
+          "mall_product_id":1,
+          "original_price":"2980.00",
+          "sale_percent":0
+        }
+      }
+    ]
   }
 }
