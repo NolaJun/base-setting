@@ -1,144 +1,165 @@
-import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-import { GetLocal, SetLocal } from './data'
-import { GetApi, GetAppid, GetOpenId } from './global'
+import { GetLocal, GetOpenId, GetAppid } from './storage'
 
-Vue.use(VueAxios, axios)
-const config = {
-  proxy: '' // 代理配置
+// 请求后台接口
+const loginApi = 'https://apiadmin.kgjsoft.com'
+const api = {
+  master: '',
+  local: ''
 }
-// axios基本配置
-const httpService = axios.create({
-  baseURL: 'https://apidev.kgjsoft.com',
-  timeout: 10000,
-  withCredentials: true
-})
-// 请求开始拦截器
-httpService.interceptors.request.use(conf => {
-  // 在发送请求前对header添加token
-  conf.headers['Authorization'] = GetLocal(GetOpenId(), 'token')
-  return conf
-}, error => {
-  // 对请求错误进行处理
-  Promise.reject(error)
-  // { status: 0, msg: error.message }
-})
-// 响应请求拦截器
-httpService.interceptors.response.use(response => {
-  // 响应数据状态码检测
-  return Promise.resolve(response)
-  // .then(checkCode)
-}, error => {
-  // 响应错误处理
-  checkStatus(error.response)
-  return Promise.reject(error)
-})
-// http状态码错误处理
-const checkStatus = (res) => {
-  // window.$pig.$vux.loading.hide()
-  switch (res.code) {
-    case 401: { // 登录过期
-      console.log('登录过期')
-      break
-    }
-    default:
-      console.log('服务器存在异常', 'middle')
-      break
-  }
+// post请求头
+const header = {
+  Accept: 'application/json',
+  Authorization: 'Bearer'
 }
-// 后台自定义 code错误处理
-const checkCode = (res) => {
-  if (res) {
-    if (res.data.code === 0 || moreCodeFn(res)) { // code为0成功
-      return res
-    } else {
-      console.log(res.data.msg) // 统一处理错误
-      return false
-    }
+
+/**
+ * 生成请求地址
+ * @param user
+ */
+export const makeApi = (user) => {
+  if (user.api === 'api.crm.com') {
+    api.master = 'http://' + user.api
   } else {
-    return false
+    api.master = 'https://' + user.api
   }
 }
 
-// 过滤 接口函数（这些接口可以自定义 错误处理）
-const moreCodeFn = (res) => {
-  let url = res.config.url // 当前URL
-  let urlArray = ['/auth/morecode/token', '/social/morecode/join']
-  for (let i = 0; i < urlArray.length; i++) {
-    if (url.indexOf(urlArray[i]) >= 0) {
-      return true
+export const apiHttp = (self, url, params) => {
+  return new Promise((resolve, reject) => {
+    let curUrl = ''
+    if (curUrl.indexOf('http') === -1 && curUrl.indexOf('https') === -1) {
+      curUrl = getApiUrl()
     }
+    let token = GetLocal(GetOpenId(), 'token')
+    header.Authorization = 'Bearer ' + token
+    self.$http.post(curUrl, params, { headers: header, emulateJSON: true }).then(resolve, reject)
+  })
+}
+/**
+ * api请求
+ * @param self  vue对应页面的this对象
+ * @param params  传给api的参数
+ * @param curUrl  浏览器路径
+ * @param show    判断是否显示成功信息
+ * @param load    判断是否关闭加载框
+ * @param type    错误提示框类型 1、 alert 2、message
+ * @returns {Promise}
+ */
+export const apiPost = (self, params, curUrl, load, show, type) => {
+  if (!type) type = 1
+  if (Object.prototype.toString.call(load) === '[object String]') {
+    self.$vux.loading.show()
   }
-  return false
+  return apiHttp(self, params, curUrl).then((res) => {
+    res = res.body
+    autoLoading(self, load)
+    if (show !== false) {
+      self.$vux.toast.show(res.data.message)
+    }
+    return res
+  }).catch((error) => {
+    autoLoading(self, load)
+    if (error.status === 403 || error.status === 400 || error.status === 422 || error.status === 401 || error.status === 302 || error.status === 301) {
+      let status = curUrl === '/WeChat/CheckLogin' ? 1 : 0
+      responseError(self, error, type, status)
+    }
+    return failed(error)
+  })
+}
+/**
+ * 返回错误信息的路由机制
+ * @param self
+ * @param error
+ * @param type
+ */
+export const responseError = (self, error, type, status) => {
+  let data = error.body
+  switch (error.status) {
+    case 301:
+      self.hasAcount = false
+      return self.hasAcount
+    case 302:
+      self.hasAcount = false
+      responseFailed(self, data, 1)
+      return self.hasAcount
+    case 401:
+      return loginPage(self, GetLocal(GetAppid(), 'appid'))
+    case 403:
+      return responseScope(self)
+    case 422:
+      let message
+      for (let k in data.errors) message = data.errors[k]
+      return responseFailed(self, data, 2)
+    default:
+      return responseFailed(self, data, 1, status)
+  }
+}
+/**
+ * 没有权限访问的错误
+ * @param self
+ */
+export const responseScope = (self) => {
+  self.$vux.toast.show('message-403')
+  if (self.$route.path !== '/Index') {
+    self.$store.commit('delete_tabs', self.$route.path)
+  }
+  // self.$router.push({path: '/index'})
 }
 
-// 解析参数
-const formatParams = (method = 'GET', params) => {
-  // headers配置
-  const headers = {
-    'Content-Type': 'application/json;charset=utf-8'
+/**
+ * 语言包转译
+ * @param self
+ * @param message
+ * @returns {string}
+ */
+export const transform = (self, message) => {
+  let result = ''
+  message = message.split(' ')
+  for (let v of message) {
+    result += self.$t(v)
   }
-  switch (method) {
-    case 'POST':
-      console.log(params)
-      return {
-        headers,
-        method,
-        data: params
-      }
-    case 'PUT':
-      return {
-        headers,
-        method,
-        data: params
-      }
-    case 'DELETE':
-      return {
-        headers,
-        method
-      }
-    case 'GET':
-      return {
-        headers,
-        method,
-        params
-      }
+  return result
+}
+/**
+ * 成功
+ * @param res   api获取的数据
+ */
+export const success = (res) => {
+  return res
+}
+
+/**
+ * 错误
+ * @param self  vue的this对象
+ * @param error  api获取的错误提示
+ */
+export const fail = (self, error) => {
+  error = transform(self, error)
+  self.$vux.alert.show({
+    title: '提示',
+    content: error
+  })
+}
+
+/**
+ * 失败返回的信息
+ * @param self
+ * @param error
+ * @param type
+ * @param status
+ */
+export const responseFailed = (self, error, type, status) => {
+  switch (type) {
+    case 1:
+      return alertMsg(self, '', error.message, status)
+    case 2:
+      return textMsg(self, 'auto', error.message)
     default:
-      return {
-        headers,
-        method,
-        params
-      }
+      return textMsg(self, 'auto', error.message)
   }
 }
-// eslint-disable-next-line import/export
-export const apiPost = (self, params, url) => {
-  return new Promise((resolve, reject) => {
-    httpService(Object.assign(formatParams('POST', params), {
-      url: `${config.proxy}` + url
-    })).then(response => { resolve(response) }).catch(error => { reject(error) })
-  })
-}
-/*
-*  post请求
-*  url:请求地址
-*  params:参数
-* */
-export const axiosHttp = (url, params = {}) => {
-  return new Promise((resolve, reject) => {
-    httpService({
-      url: url,
-      method: 'post',
-      data: params
-    }).then(response => {
-      resolve(response)
-    }).catch(error => {
-      reject(error)
-    })
-  })
-}
+
 export default {
-  apiPost,
-  axiosHttp
+  makeApi,
+  apiPost
 }

@@ -121,4 +121,12 @@ a {
 .van-button--normal {
   font-size: 24px;
 }
+.van-button--large {
+  height: 80px;
+  line-height: 80px;
+}
+.van-field__left-icon .van-icon,
+.van-field__right-icon .van-icon {
+  font-size: 28px;
+}
 /*# sourceMappingURL=Common.css.map */

@@ -11,7 +11,7 @@ import 'font-awesome/css/font-awesome.css'
 // @ts-ignore
 Vue.config.productionTip = false
 
-require('../public/mock/mock.js')
+// require('../public/mock/mock.js')
 new Vue({
   router,
   store,

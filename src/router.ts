@@ -9,34 +9,44 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/', // 授权页
       name: 'Auth',
       component: () => import('./Login/Auth.vue')
     },
     {
-      path: '/Login',
+      path: '/Login', // 登录
       name: 'Login',
       component: () => import('./Login/Index.vue')
     },
     {
-      path: '/Index',
+      path: '/Index', // 首页
       name: 'home',
       component: () => import('./Index/Index.vue')
     },
     {
-      path: '/Mall',
+      path: '/Mall', // 商城
       name: 'Mall',
       component: () => import('./Mall/Index.vue')
     },
     {
-      path: '/Order',
+      path: '/Order', // 订单列表
       name: 'Order',
       component: () => import('./Order/Index.vue')
     },
     {
-      path: '/Mine',
+      path: '/Mine', // 我的
       name: 'Mine',
       component: () => import('./Mine/Index.vue')
+    },
+    {
+      path: '/Address', // 地址列表
+      name: 'Address',
+      component: () => import('./Address/Index.vue')
+    },
+    {
+      path: '/AddAddress', // 添加编辑地址
+      name: 'AddAddress',
+      component: () => import('./Address/Add.vue')
     },
     {
       path: '/404',

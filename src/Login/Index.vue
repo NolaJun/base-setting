@@ -16,7 +16,7 @@
 <script>
 import { Popup, CellGroup, Field, Button, Image } from 'vant'
 // import { GetApi } from '../assets/js/global'
-import { getUrlKey } from '../assets/js/data'
+import { getUrlKey } from '../assets/js/storage'
 export default {
   name: 'Login',
   components: {

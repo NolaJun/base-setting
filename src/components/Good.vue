@@ -61,24 +61,24 @@ export default {
     },
     getList (id) {
       // 异步更新数据
-      if (id === 1) {
-        // this.$axios.post('/MallSeckill').then((res) => {
-        //   console.log(res)
-        // })
-      } else {
-        setTimeout(() => {
-          for (let i = 0; i < 10; i++) {
-            this.list.push(this.list.length + id)
-          }
-          // 加载状态结束
-          this.loading = false
+      // if (id === 1) {
+      //   // this.$axios.post('/MallSeckill').then((res) => {
+      //   //   console.log(res)
+      //   // })
+      // } else {
+      setTimeout(() => {
+        for (let i = 0; i < 10; i++) {
+          this.list.push(this.list.length + id)
+        }
+        // 加载状态结束
+        this.loading = false
 
-          // 数据全部加载完成
-          if (this.list.length >= 40) {
-            this.finished = true
-          }
-        }, 500)
-      }
+        // 数据全部加载完成
+        if (this.list.length >= 40) {
+          this.finished = true
+        }
+      }, 500)
+      // }
     }
   }
 }

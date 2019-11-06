@@ -24,4 +24,4 @@
   }
 }
 </style>
-<style src="./assets/css/Common.less?r=100" lang="less"></style>
+<style src="./assets/css/Common.less" lang="less"></style>

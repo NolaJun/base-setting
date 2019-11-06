@@ -1,20 +1,8 @@
-import { SetLocal, RemoveLocal, GetLocal, getUrlKey } from './data'
+import { SetLocal, RemoveLocal, GetLocal, getUrlKey } from './storage'
 import { apiPost } from './api'
 
 var appid = ''
 var openid = ''
-const api = {
-  master: '',
-  // master: 'https://api.crm.raven.pub',
-  local: 'http://api.crm.com'
-}
-
-// post请求头
-const header = {
-  Accept: 'application/json',
-  Authorization: 'Bearer'
-}
-
 /**
  * 获取appid
  * @param appid
@@ -22,9 +10,7 @@ const header = {
  * @constructor
  */
 export const GetAppid = (appid) => {
-  console.log(appid)
   if (!appid) appid = localStorage.getItem('appid')
-  console.log(appid)
   appid = GetLocal(appid, 'appid')
   return appid
 }
@@ -192,7 +178,24 @@ export const CheckLogin = (self, appid, openId) => {
     }
   })
 }
+/**
+ * 链接更新数据
+ * @param self
+ * @constructor
+ */
+export const UpdateData = (self) => {
+  let appid = getUrlKey('id')
+  if (appid && (appid === GetLocal(appid, 'appid'))) {
+    GetLocal('appid', appid)
+    let openid = GetOpenId()
+    RemoveLocal(openid, 'cars')
+    RemoveLocal(openid, 'user')
+    RemoveLocal(openid, 'card')
+    GetUserInfo(self, appid)
+  }
+}
 export default {
+  UpdateData,
   GetUserInfo,
   GetApi,
   GetOpenId,
