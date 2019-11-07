@@ -40,10 +40,10 @@ export const getLoginApiUrl = (self, appid) => {
   let key = null
   if (appid) key = appid
   key = GetLocal(appid, 'appid')
-  self.$http.post(loginApi + '/Login/GetWeChatApi', {key: key}, {emulateJSON: true}).then((res) => {
+  self.$http.post(loginApi + '/Login/GetWeChatApi', { key: key }, { emulateJSON: true }).then((res) => {
+    console.log(res)
     res = res.body
     SetLocal('api', res.data)
-    // RemoveLocal('openid')
     makeApi(res.data)
   })
 }
@@ -61,6 +61,7 @@ export const GetUserInfo = (self) => {
     if (getUrlKey('id') || getUrlKey('key')) { // url上带appid值
       appid = getUrlKey('id')
       localStorage.setItem('appid', appid) // 保存当前的appid
+      console.log(appid, !GetLocal(appid, 'api'), GetLocal(appid, 'appid'))
       if (!GetLocal(appid, 'api')) GetApi(self, appid)
       if (GetLocal(appid, 'appid') === appid) {
         appid = GetLocal(appid, 'appid')
@@ -169,6 +170,7 @@ export const CheckLogin = (self, appid, openId) => {
     key: appid,
     openid: openId
   }
+  console.log(params)
   apiPost(self, params, '/WeChat/CheckLogin', false, false, false).then((res) => {
     if (res.code === 200) { // 已登录
       let token = res.data.token
@@ -203,7 +205,22 @@ export const UpdateData = (self) => {
     GetUserInfo(self, appid)
   }
 }
+/**
+ * 语言包转译
+ * @param self
+ * @param message
+ * @returns {string}
+ */
+export const transform = (self, message) => {
+  let result = ''
+  message = message.split(' ')
+  for (let v of message) {
+    result += self.$t(v)
+  }
+  return result
+}
 export default {
+  transform,
   UpdateData,
   GetUserInfo,
   GetApi,

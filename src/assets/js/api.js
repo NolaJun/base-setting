@@ -26,6 +26,7 @@ export const makeApi = (user) => {
   } else {
     api.master = 'https://' + user.api
   }
+  console.log(api)
 }
 
 export const apiHttp = (self, url, params) => {
@@ -51,6 +52,7 @@ export const apiHttp = (self, url, params) => {
  */
 export const apiPost = (self, params, curUrl, load, show, type) => {
   if (!type) type = 1
+  console.log('1')
   if (Object.prototype.toString.call(load) === '[object String]') {
     Toast.loading({
       message: '加载中...',
@@ -174,14 +176,6 @@ export const fail = (self, error) => {
  */
 export const responseFailed = (self, error, type, status) => {
   return ToastMsg(self, 0, error.message, status)
-  // switch (type) {
-  //   case 1:
-  //     return ToastMsg(self, 0, error.message, status)
-  //   case 2:
-  //     return ToastMsg(self, 0, error.message)
-  //   default:
-  //     return ToastMsg(self, 0, error.message)
-  // }
 }
 
 export const ToastMsg = (self, status, message) => {
