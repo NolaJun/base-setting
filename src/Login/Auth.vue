@@ -17,7 +17,6 @@ export default {
   methods: {
     init () {
       GetUserInfo(this)
-      // this.$router.push('/Index')
     }
   }
 }

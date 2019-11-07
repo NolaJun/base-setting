@@ -1,5 +1,5 @@
 import { SetLocal, RemoveLocal, GetLocal, getUrlKey } from './storage'
-import { apiPost } from './api'
+import { apiPost, header, makeApi } from './api'
 
 var appid = ''
 var openid = ''
@@ -13,17 +13,6 @@ export const GetAppid = (appid) => {
   if (!appid) appid = localStorage.getItem('appid')
   appid = GetLocal(appid, 'appid')
   return appid
-}
-/**
- * 生成请求地址
- * @param user
- */
-export const makeApi = (user) => {
-  if (user.api === 'api.crm.com') {
-    api.master = 'http://' + user.api
-  } else {
-    api.master = 'https://' + user.api
-  }
 }
 
 /**
@@ -43,13 +32,32 @@ export const currentPage = (self) => {
 }
 
 /**
+ * 获取请求后台数据地址
+ * @type {string}
+ */
+const loginApi = 'https://apiadmin.kgjsoft.com'
+export const getLoginApiUrl = (self, appid) => {
+  let key = null
+  if (appid) key = appid
+  key = GetLocal(appid, 'appid')
+  self.$http.post(loginApi + '/Login/GetWeChatApi', {key: key}, {emulateJSON: true}).then((res) => {
+    res = res.body
+    SetLocal('api', res.data)
+    // RemoveLocal('openid')
+    makeApi(res.data)
+  })
+}
+/**
  * 根据链接获取appid
  * @param self
  * @constructor
  */
 export const GetUserInfo = (self) => {
-  let routers = ['/ShareCoupon/Common', '/ShareBag/Common']
-  if (routers.indexOf(self.$route.path) === -1) { // 非分享优惠券和礼包
+  let routers = ['/ShareCoupon', '/ShareBag', '/ShareFission', '/Share']
+  let z = routers.some((item) => {
+    return window.location.href.includes(item)
+  })
+  if (!z) { // 非分享优惠券和礼包
     if (getUrlKey('id') || getUrlKey('key')) { // url上带appid值
       appid = getUrlKey('id')
       localStorage.setItem('appid', appid) // 保存当前的appid
@@ -71,7 +79,8 @@ export const GetUserInfo = (self) => {
       appid = GetLocal('', 'appid') // 获取默认的appid
       openid = GetLocal(appid, 'openid')
       let token = GetLocal(openid, 'token')
-      self.header.Authorization = 'Bearer ' + token
+      // console.log(token)
+      header.Authorization = 'Bearer ' + token
       makeApi(GetLocal(appid, 'api'))
       setTimeout(() => {
         CheckLogin(self, appid, openid)
@@ -201,5 +210,5 @@ export default {
   GetOpenId,
   GetAppid,
   currentPage,
-  makeApi
+  getLoginApiUrl
 }

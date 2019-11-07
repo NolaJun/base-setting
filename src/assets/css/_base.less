@@ -98,22 +98,22 @@ a {
   border-radius: @radius;
 }
 
-.border-top-radius(@radius) {
+.border-top-radius(@radius: 5px) {
   border-top-right-radius: @radius;
   border-top-left-radius: @radius;
 }
 
-.border-right-radius(@radius) {
+.border-right-radius(@radius: 5px) {
   border-bottom-right-radius: @radius;
   border-top-right-radius: @radius;
 }
 
-.border-bottom-radius(@radius) {
+.border-bottom-radius(@radius: 5px) {
   border-bottom-right-radius: @radius;
   border-bottom-left-radius: @radius;
 }
 
-.border-left-radius(@radius) {
+.border-left-radius(@radius: 5px) {
   border-bottom-left-radius: @radius;
   border-top-left-radius: @radius;
 }
@@ -148,11 +148,14 @@ a {
 }
 .form-input{
   font-size: 24px;
+  line-height: 2;
   .van-field__error-message{
     font-size: 18px;
   }
   .form-input-btn{
     font-size: 24px;
+    line-height: 2;
+    height: 50px;
   }
 }
 .form-btn{

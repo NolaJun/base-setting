@@ -11,23 +11,28 @@
       @save="onSave"
       @delete="onDelete"
       @change-detail="onChangeDetail"></van-address-edit>
-    <van-area :area-list="areaList" value="110101" />
+
+    <van-popup v-model="show" round position="bottom">
+      <van-area :area-list="areaList" value="110101" />
+    </van-popup>
   </div>
 </template>
 
 <script>
-import { AddressEdit, Area, Toast } from 'vant'
+import { AddressEdit, Popup, Area, Toast } from 'vant'
 export default {
   name: 'AddAddress',
   components: {
     [Toast.name]: Toast,
     [Area.name]: Area,
+    [Popup.name]: Popup,
     [AddressEdit.name]: AddressEdit
   },
   data () {
     return {
       areaList,
-      searchResult: []
+      searchResult: [],
+      show: false
     }
   },
   methods: {

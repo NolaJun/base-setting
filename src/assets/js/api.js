@@ -1,4 +1,8 @@
+import Vue from 'vue'
+import { Toast } from 'vant'
 import { GetLocal, GetOpenId, GetAppid } from './storage'
+
+Vue.use(Toast)
 
 // 请求后台接口
 const loginApi = 'https://apiadmin.kgjsoft.com'
@@ -48,7 +52,10 @@ export const apiHttp = (self, url, params) => {
 export const apiPost = (self, params, curUrl, load, show, type) => {
   if (!type) type = 1
   if (Object.prototype.toString.call(load) === '[object String]') {
-    self.$vux.loading.show()
+    Toast.loading({
+      message: '加载中...',
+      forbidClick: true
+    })
   }
   return apiHttp(self, params, curUrl).then((res) => {
     res = res.body
@@ -66,6 +73,23 @@ export const apiPost = (self, params, curUrl, load, show, type) => {
     return failed(error)
   })
 }
+export const failed = (res) => {
+  return res
+}
+/**
+ * 判断是否需要关闭加载层
+ * @param self
+ * @param load
+ */
+export const autoLoading = (self, load) => {
+  if (Object.prototype.toString.call(load) === '[object String]') {
+    Toast.clear()
+  }
+  if (typeof (load) === 'object') {
+    load.close()
+  }
+}
+
 /**
  * 返回错误信息的路由机制
  * @param self
@@ -135,7 +159,7 @@ export const success = (res) => {
  */
 export const fail = (self, error) => {
   error = transform(self, error)
-  self.$vux.alert.show({
+  Toast({
     title: '提示',
     content: error
   })
@@ -149,17 +173,32 @@ export const fail = (self, error) => {
  * @param status
  */
 export const responseFailed = (self, error, type, status) => {
-  switch (type) {
-    case 1:
-      return alertMsg(self, '', error.message, status)
-    case 2:
-      return textMsg(self, 'auto', error.message)
-    default:
-      return textMsg(self, 'auto', error.message)
-  }
+  return ToastMsg(self, 0, error.message, status)
+  // switch (type) {
+  //   case 1:
+  //     return ToastMsg(self, 0, error.message, status)
+  //   case 2:
+  //     return ToastMsg(self, 0, error.message)
+  //   default:
+  //     return ToastMsg(self, 0, error.message)
+  // }
 }
 
+export const ToastMsg = (self, status, message) => {
+  switch (status) {
+    case 0: // 文字提示
+      Toast(message)
+      break
+    case 1: // 成功提示
+      Toast.success(message)
+      break
+    case 2: // 失败提示
+      Toast.fail(message)
+      break
+  }
+}
 export default {
   makeApi,
-  apiPost
+  apiPost,
+  header
 }

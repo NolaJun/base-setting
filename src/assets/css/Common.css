@@ -1,3 +1,4 @@
+@import "icon/iconfont.css";
 *:after {
   content: '';
   box-sizing: border-box;
@@ -101,12 +102,15 @@ a {
 }
 .form-input {
   font-size: 24px;
+  line-height: 2;
 }
 .form-input .van-field__error-message {
   font-size: 18px;
 }
 .form-input .form-input-btn {
   font-size: 24px;
+  line-height: 2;
+  height: 50px;
 }
 .form-btn {
   font-size: 24px;
@@ -118,6 +122,10 @@ a {
   height: 60px;
   margin-top: 100px;
 }
+.iconfont {
+  line-height: normal;
+  font-size: 50px;
+}
 .van-button--normal {
   font-size: 24px;
 }
@@ -128,5 +136,8 @@ a {
 .van-field__left-icon .van-icon,
 .van-field__right-icon .van-icon {
   font-size: 28px;
+}
+.orange {
+  color: #fa8c16;
 }
 /*# sourceMappingURL=Common.css.map */
